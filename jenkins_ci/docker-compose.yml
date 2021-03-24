@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  jenkins_master:
+    image: nimbleplatform/jenkins-master:latest
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - ./ssh_config:/root/.ssh/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JENKINS_OPTS="--prefix=/jenkins/"
+#    ports:
+#      - "50000:50000"
+    networks:
+      - jenkins
+
+
+networks:
+  jenkins:
+    external:
+      name: jenkins_default
+
+      

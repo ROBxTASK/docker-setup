@@ -1,0 +1,12 @@
+jenkins_ci/jenkins_home/
+*env_vars-staging
+*keycloak_secrets
+*.pyc
+*.pyo
+.vscode
+.idea
+dev/infra/data
+__pycache__
+jenkins_ci/password.txt
+nginx/htpasswd*
+nginx/certs/robxtask.*

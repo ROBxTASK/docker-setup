@@ -1,0 +1,122 @@
+version: '2'
+
+# services overview:
+# - identity-service
+# - frontend-service
+# - frontend-service-sidecar
+# - indexing-service
+
+
+services:
+
+  ############################
+  ##### Identity Service #####
+  ############################
+
+  identity-service:
+    hostname: identity-service
+    image: iassetplatform/identity-service:staging
+    env_file:
+      - env_vars
+    environment:
+      - _JAVA_OPTIONS=-Xmx128m -Xms50m # -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+      - POSTGRES_HOST=dev-main-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=identitydb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - BINARY_CONTENT_DB_HOST=dev-main-db
+      - BINARY_CONTENT_DB_PORT=5432
+      - BINARY_CONTENT_DB_NAME=binarycontentdb
+      - BINARY_CONTENT_DB_USERNAME=postgres
+      - BINARY_CONTENT_DB_PASSWORD=postgres
+      - BINARY_CONTENT_URL=http://not-yet-in-use/
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_JAAS_CONFIG=
+      - SMTP_HOST=maildev
+      - SMTP_PORT=25
+      - SMTP_DEFAULT_FROM=dev@local-dev
+      - SMTP_USERNAME=
+      - SMTP_PASSWORD=
+      - SMTP_AUTH=false
+      - SMTP_STARTTLS=false
+      - KEYCLOAK_URL=http://keycloak:8080/auth
+      - KEYCLOAK_REALM=master
+      - KEYCLOAK_ADMIN_USERNAME=admin
+      - KEYCLOAK_ADMIN_PASSWORD=password
+      - KEYCLOAK_ADMIN_CLIENT_ID=admin-cli
+      - KEYCLOAK_ADMIN_CLIENT_SECRET=cd2c2640-bca0-4d1d-9dab-b5705a17fbf8
+      - KEYCLOAK_PUBLIC_KEY=not_applicable
+      - FEDERATION_INSTANCE_ID=not_applicable
+      - OAUTH_CLIENT_ID=nimble_client
+      - OAUTH_CLIENT_SECRET=cbcd2e6f-e58a-42b4-9d2d-95a933ee29ae
+      - OAUTH_CLIENT_ACCESSTOKEN_URI=http://keycloak:8080/auth/realms/master/protocol/openid-connect/token
+      - ROCKET_CHAT=false
+      - INDEXING_SERVICE_URL=http://indexing-service:8080/
+      
+    ports:
+      - "9096:9096"
+      # - "8000:8000"
+    networks:
+      - infra
+      - identity-backend
+
+
+  ###############################
+  ###### Frontend Service #######
+  ###############################
+
+  frontend-service:
+    hostname: frontend-service
+    image: iassetplatform/frontend-service:staging
+    environment:
+      TARGET_ENVIRONMENT: staging # "dev" not yet required
+    ports:
+      - "8081:8080" # external port: 8081
+    env_file:
+      - env_vars
+    depends_on:
+      - frontend-service-sidecar
+    networks:
+      - infra
+
+  frontend-service-sidecar:
+    hostname: frontend-service-sidecar
+    image: nimbleplatform/sidecar:latest
+    ports:
+      - "9097:9097"
+    env_file:
+      - env_vars
+    environment:
+      SIDECAR_NAME: frontend-service
+      SIDECAR_APP_HOST: frontend-service
+      SIDECAR_APP_PORT: 8080 # use internal port of network (not publicly exposed)
+      SIDECAR_APP_HEALTH_URI: http://frontend-service:8080/health.json
+      SIDECAR_APP_HOMEPAGE_URI: http://frontend-service:8080/
+      _JAVA_OPTIONS: -Xmx128m -Xms128m
+    networks:
+      - infra
+
+  ##############################
+  ####### Indexing Service #####
+  ##############################
+
+  indexing-service:
+    hostname: indexing-service
+    image: iassetplatform/indexing-service:staging
+    ports:
+      - "9101:8080"
+    environment:
+      - _JAVA_OPTIONS=-Xmx256m -Xms50m
+      - SOLR_HOST=http://solr:8983/solr/
+    mem_limit: 2000m
+    env_file:
+      - env_vars
+    networks:
+     - infra
+
+networks:
+  infra:
+    external:
+      name: dev_infra_default
+  identity-backend:

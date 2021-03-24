@@ -1,0 +1,5 @@
+KEYCLOAK_LOGLEVEL=INFO
+
+## to be set in keycloak_secrets
+#KEYCLOAK_USER=admin
+#KEYCLOAK_PASSWORD=password
