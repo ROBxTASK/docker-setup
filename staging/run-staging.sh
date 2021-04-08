@@ -30,7 +30,7 @@ elif [[ "$1" = "services" ]]; then
 		-d \
 		--remove-orphans \
 		--build \
-		identity-service frontend-service frontend-service-sidecar
+		identity-service frontend-service frontend-service-sidecar asset-indexing-service semantic-lookup-service
 
 elif [[ "$1" = "start" ]]; then
 	update_images
