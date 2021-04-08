@@ -98,3 +98,9 @@ A utility script can be found in `run-staging.sh`, which provides the following 
 - `nginx`: container for the webserver and reverse proxy (i.e. nginx)
 - **Configuration**: `nginx/docker-compose.yml`
 - **Nginx Configuration**: `nginx/nginx.conf`
+
+## A note about service routes
+
+Routes are handled by the gateway-proxy and appear e.g. at: https://robxtask.salzburgresearch.at/robxtask/routes
+There are some preconfigured routes available and used from https://github.com/nimble-platform/cloud-config
+In addition to that, all running services add their own route using their own service name.
