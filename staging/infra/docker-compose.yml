@@ -8,6 +8,7 @@ services:
   config-server:
     hostname: config-server
     image: nimbleplatform/config-server:latest
+    restart: always
     env_file:
       - env_vars
       - env_vars-staging
@@ -19,6 +20,7 @@ services:
   service-discovery:
     hostname: service-discovery
     image: nimbleplatform/service-discovery:latest
+    restart: always
     env_file:
       - env_vars
       - env_vars-staging
@@ -32,6 +34,7 @@ services:
   gateway-proxy:
     hostname: gateway-proxy
     image: nimbleplatform/gateway-proxy:latest
+    restart: always
     env_file:
       - env_vars
       - env_vars-staging
