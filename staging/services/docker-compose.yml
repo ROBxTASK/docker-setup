@@ -117,7 +117,7 @@ services:
   ###############################
   
   frontend-service:
-    image: iassetplatform/frontend-service:staging
+    image: robxtask/frontend-service:staging
     ports:
       - "8081:8080"
     env_file:
