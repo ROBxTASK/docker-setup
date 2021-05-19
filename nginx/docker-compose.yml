@@ -3,6 +3,7 @@ version: '2'
 services:
   nginx:
     image: nginx:stable
+    restart: always
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./certs:/etc/certs:ro

@@ -3,6 +3,7 @@ version: '2'
 services:
   jenkins_master:
     image: nimbleplatform/jenkins-master:latest
+    restart: always
     volumes:
       - ./jenkins_home:/var/jenkins_home
       - ./jenkins.war:/usr/share/jenkins/jenkins.war
