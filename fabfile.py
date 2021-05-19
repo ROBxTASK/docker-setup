@@ -31,6 +31,7 @@ def run_staging_infra(c):
     update_files(c)
 
     with c.cd(WORKING_DIR + "staging/"):
+        c.run('./run-staging.sh database')
         c.run('./run-staging.sh infra')
         c.run('./run-staging.sh keycloak')
         c.run('./run-staging.sh solr')
