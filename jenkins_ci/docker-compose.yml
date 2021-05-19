@@ -5,10 +5,12 @@ services:
     image: nimbleplatform/jenkins-master:latest
     volumes:
       - ./jenkins_home:/var/jenkins_home
+      - ./jenkins.war:/usr/share/jenkins/jenkins.war
       - ./ssh_config:/root/.ssh/config
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - JENKINS_OPTS="--prefix=/jenkins/"
+      - JAVA_OPTS="-Dhudson.model.DownloadService.noSignatureCheck=true"
 #    ports:
 #      - "50000:50000"
     networks:
