@@ -57,27 +57,10 @@ The deployment is composed of infrastructure componentes and the actual
 Microservices. A utility script with the name `run.sh` can
 be found in the directories of each setup.
 
-
 Definition and configuration of the deployment can be found in
-`services/docker-compose.yml` and defines the follwing services:
+`services/docker-compose.yml`
 
-- Identity Service
-  - **ServiceID**: identity-service
-  - **Container Name**: iassetprod_identity-service_1
-- Business Process Service
-  - **ServiceID**: business-process-service
-  - **Container Name**: iassetprod_business-process-service_1
-- Catalog Service
-  - **ServiceID**: catalog-service-srdc
-  - **Container Name**: iassetprod_catalog-service-srdc_1
-- Frontend Service
-  - **ServiceID**: frontend-service
-  - **Container Name**: iassetprod_frontend-service_1
-- Frontend Service Sidecar
-  - **ServiceID**: frontend-service-sidecar
-  - **Container Name**: iassetprod_frontend-service-sidecar_1
-
-**Configuration** is done via environment variables, which are define in `prod/services/env_vars`. Secrets are stored in `prod/services/env_vars-prod` (this file is adapted on the hosting machine).
+**Configuration** is done via environment variables, which are define in `staging/services/env_vars`. Secrets can be locally stored in `staging/services/env_vars-staging`.
 
 ### Utility Script
 
@@ -92,7 +75,6 @@ A utility script can be found in `run-staging.sh`, which provides the following 
 - `run-staging.sh services-logs`: print logs of all services to stdout
 - `run-staging.sh restart-single <serviceID>`: restart a single service
 
-
 ## Reverse Proxy for external service visibility
 
 - `nginx`: container for the webserver and reverse proxy (i.e. nginx)
@@ -101,6 +83,7 @@ A utility script can be found in `run-staging.sh`, which provides the following 
 
 ## A note about service routes
 
-Routes are handled by the gateway-proxy and appear e.g. at: https://robxtask.salzburgresearch.at/robxtask/routes
-There are some preconfigured routes available and used from https://github.com/nimble-platform/cloud-config
+Routes are handled by the gateway-proxy and appear e.g. at: [https://robxtask.salzburgresearch.at/robxtask/routes](https://robxtask.salzburgresearch.at/robxtask/routes)
+
+There are some preconfigured routes available and used from [https://github.com/nimble-platform/cloud-config](https://github.com/nimble-platform/cloud-config)
 In addition to that, all running services add their own route using their own service name.
