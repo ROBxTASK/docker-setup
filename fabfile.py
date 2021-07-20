@@ -1,5 +1,6 @@
 from fabric import task
 from patchwork.transfers import rsync
+import os
 
 WORKING_DIR = '/srv/docker-setup_fab/'
 
@@ -7,8 +8,11 @@ WORKING_DIR = '/srv/docker-setup_fab/'
 def update_files(c):
     print(c)
     c.run('mkdir -p ' + WORKING_DIR)
-    rsync(c, source='.', target=WORKING_DIR, rsync_opts='--progress', exclude=[
+    real_path = os.path.realpath(__file__)
+    dir_path = os.path.dirname(real_path)
+    rsync(c, source=dir_path + "/.", target=WORKING_DIR, rsync_opts='--progress', exclude=[
                                                     #'services/env_vars-staging', 
+                                                    '.vscode',
                                                     '.git',
                                                     '.gitignore',
                                                     '*.pyc',
@@ -52,13 +56,11 @@ def run_nginx(c):
 
 @task
 def log_nginx(c):
-    update_files(c)
     with c.cd(WORKING_DIR + 'nginx'):
         c.run('docker-compose logs -f --tail 100')
 
 
 @task
 def log_jenkins(c):
-    update_files(c)
     with c.cd(WORKING_DIR + 'jenkins_ci/'):
         c.run('docker-compose logs -f --tail 100')
