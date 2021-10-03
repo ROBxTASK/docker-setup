@@ -7,7 +7,9 @@ services:
     volumes:
       - ./jenkins_home:/var/jenkins_home
       - ./jenkins.war:/usr/share/jenkins/jenkins.war
-      - ./ssh_config:/root/.ssh/config
+      - root.ssh.dir:/root/.ssh 
+      - ${DEPLOY_HOME}/.ssh/id_rsa:/root/.ssh/id_rsa # set in env-variable .env file
+      - ${SSH_CONFIG_FILE}:/root/.ssh/config # needs correct owner and permissions
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - JENKINS_OPTS="--prefix=/jenkins/"
@@ -23,4 +25,5 @@ networks:
     external:
       name: jenkins_default
 
-      
+volumes:
+  root.ssh.dir: {}
