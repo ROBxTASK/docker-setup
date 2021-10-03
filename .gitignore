@@ -10,3 +10,4 @@ __pycache__
 jenkins_ci/password.txt
 nginx/htpasswd*
 nginx/certs/robxtask.*
+.env
