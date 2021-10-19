@@ -39,6 +39,7 @@ def run_staging_infra(c):
         c.run('./run-staging.sh infra')
         c.run('./run-staging.sh keycloak')
         c.run('./run-staging.sh solr')
+        c.run('./run-staging.sh mongo')
 
 @task
 def run_staging_services(c):

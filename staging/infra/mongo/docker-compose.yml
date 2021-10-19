@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  staging-mongo-db:
+    image: mongo:4
+    #restart: always
+    env_file:
+      - env_vars
+      - env_vars-staging
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - staging-mongo-db:/data/db
+    #ports:
+    #  - 27017:27017
+    networks:
+      - infra
+    healthcheck:
+        test: ["CMD", "echo", "''", "|", "mongo", "-"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+
+  staging-mongo-express:
+    image: mongo-express
+    #restart: always
+    env_file:
+      - env_vars
+      - env_vars-staging
+    #ports:
+    #  - 8081:8081
+    depends_on:
+      - staging-mongo-db
+    links:
+      - staging-mongo-db
+    networks:
+      - infra
+
+volumes:
+  staging-mongo-db:
+
+networks:
+  infra:
+    external:
+      name: staging_infra_default
