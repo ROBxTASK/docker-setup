@@ -7,16 +7,19 @@ SERVICE_PROJECT=robxtask-services-staging
 # run infrastructure
 if [[ "$1" = "infra" ]]; then
 	docker network create staging_infra_default || true
-	docker-compose -f infra/docker-compose.yml --project-name ${INFRA_PROJECT} up --build -d --remove-orphans
+	docker-compose -f infra/docker-compose.yml --project-name ${INFRA_PROJECT} up --build -d 
 
 elif [[ "$1" = "database" ]]; then
-	docker-compose -f infra/docker-compose.yml --project-name ${INFRA_PROJECT} up -d --remove-orphans staging-main-db
+	docker-compose -f infra/docker-compose.yml --project-name ${INFRA_PROJECT} up -d staging-main-db
+
+elif [[ "$1" = "mongo" ]]; then
+	docker-compose -f infra/mongo/docker-compose.yml --project-name ${INFRA_PROJECT} up -d 
 
 elif [[ "$1" = "keycloak" ]]; then
-	docker-compose -f infra/keycloak/docker-compose.yml --project-name ${INFRA_PROJECT}-keycloak up --build -d --remove-orphans
+	docker-compose -f infra/keycloak/docker-compose.yml --project-name ${INFRA_PROJECT}-keycloak up --build -d
 
 elif [[ "$1" = "solr" ]]; then
-	docker-compose -f infra/solr/docker-compose.yml --project-name ${INFRA_PROJECT}-solr up --build -d --remove-orphans
+	docker-compose -f infra/solr/docker-compose.yml --project-name ${INFRA_PROJECT}-solr up --build -d
 
 #elif [[ "$1" = "elk" ]]; then
 #	docker-compose -f infra/elk/docker-compose-elk.yml --project-name ${INFRA_PROJECT}-elk up --build -d --remove-orphans
