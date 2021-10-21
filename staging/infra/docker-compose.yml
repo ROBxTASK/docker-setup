@@ -58,7 +58,7 @@ services:
       - env_vars
       - env_vars-staging
     volumes:
-      - ./initdb/:/docker-entrypoint-initdb.d/
+      - ./initdb/db_init.sql:/docker-entrypoint-initdb.d/db_init.sql:ro
       - staging-main-db:/var/lib/postgresql/data
     networks:
       - infra
