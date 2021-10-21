@@ -235,6 +235,23 @@ services:
     networks:
       - infra
 
+  #################################################
+  ######## RxT Simple Registration Service ########
+  #################################################
+
+  simple-registration-service:
+    image: robxtask/simple-registration-service:staging
+    #image: robxtask/simple-registration-service:local
+    env_file:
+      - env_vars
+      - env_vars-staging
+      - platform-config
+    mem_limit: 800m
+    #ports:
+    #  - "5000:5000"
+    networks:
+      - infra
+
 networks:
   infra:
     external:
