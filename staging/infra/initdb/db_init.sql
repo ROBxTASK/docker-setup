@@ -4,3 +4,7 @@ CREATE DATABASE trustdb WITH OWNER admin;
 CREATE DATABASE assetdb WITH OWNER admin;
 CREATE DATABASE semanticlookupdb WITH OWNER admin;
 CREATE DATABASE binarycontentdb WITH OWNER admin;
+CREATE DATABASE ubldb WITH OWNER admin;
+CREATE DATABASE businessprocessdb WITH OWNER admin;
+CREATE DATABASE camundadb WITH OWNER admin;
+CREATE DATABASE categorydb WITH OWNER admin;

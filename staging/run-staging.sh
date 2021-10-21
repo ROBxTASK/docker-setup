@@ -34,7 +34,8 @@ elif [[ "$1" = "services" ]]; then
 		--remove-orphans \
 		--build \
 		identity-service frontend-service frontend-service-sidecar \
-		registry-service asset-indexing-service semantic-lookup-service
+		registry-service asset-indexing-service semantic-lookup-service \
+		simple-registration-service catalog-service-srdc business-process-service
 
 elif [[ "$1" = "start" ]]; then
 	update_images
