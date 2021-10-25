@@ -6,7 +6,7 @@ services:
     restart: always
     volumes:
       - ./jenkins_home:/var/jenkins_home
-      - ./jenkins.war:/usr/share/jenkins/jenkins.war
+      - ./jenkins.war:/usr/share/jenkins/jenkins.war:ro
       - root.ssh.dir:/root/.ssh 
       - ${DEPLOY_HOME}/.ssh/id_rsa:/root/.ssh/id_rsa # set in env-variable .env file
       - ${SSH_CONFIG_FILE}:/root/.ssh/config # needs correct owner and permissions
