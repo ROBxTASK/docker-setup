@@ -7,4 +7,7 @@ CREATE DATABASE binarycontentdb WITH OWNER admin;
 CREATE DATABASE ubldb WITH OWNER admin;
 CREATE DATABASE businessprocessdb WITH OWNER admin;
 CREATE DATABASE camundadb WITH OWNER admin;
-CREATE DATABASE categorydb WITH OWNER admin;
+CREATE DATABASE catalogcategorydb WITH OWNER admin;
+CREATE DATABASE catalogsyncdb WITH OWNER admin;
+CREATE DATABASE datachanneldb WITH OWNER admin;
+CREATE DATABASE trustdb WITH OWNER admin;
