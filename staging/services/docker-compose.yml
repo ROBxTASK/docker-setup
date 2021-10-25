@@ -242,6 +242,7 @@ services:
   simple-registration-service:
     image: robxtask/simple-registration-service:staging
     #image: robxtask/simple-registration-service:local
+    restart: always
     env_file:
       - env_vars
       - env_vars-staging

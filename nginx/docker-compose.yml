@@ -17,6 +17,11 @@ services:
       - infra
       - staging-infra
       - jenkins
+    healthcheck:
+        test: ["CMD", "curl", "-sL", "--fail", "https://robxtask.salzburgresearch.at/"]
+        interval: 5m
+        timeout: 10s
+        retries: 5
 
 
 networks:
