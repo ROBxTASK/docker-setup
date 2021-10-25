@@ -4,7 +4,6 @@ services:
   keycloak:
      hostname: keycloak
      image: jboss/keycloak:3.4.0.Final
-     image: jboss/keycloak:14.0.0
      restart: always
      env_file:
        - keycloak_default_env
