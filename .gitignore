@@ -1,3 +1,5 @@
+jenkins_ci/ssh_config
+jenkins_ci/jenkins.war
 jenkins_ci/jenkins_home/
 *env_vars-staging
 *keycloak_secrets
