@@ -13,6 +13,11 @@ def update_files(c):
     rsync(c, source=dir_path + "/.", target=WORKING_DIR, rsync_opts='--progress', exclude=[
                                                     #'services/env_vars-staging', 
                                                     '.vscode',
+                                                    'jenkins_ci/jenkins_home/*',
+                                                    'jenkins_ci/ssh_config'
+                                                    'jenkins_ci/jenkins.war'
+                                                    '.vscode/*',
+                                                    'fab*',
                                                     '.git',
                                                     '.gitignore',
                                                     '*.pyc',
