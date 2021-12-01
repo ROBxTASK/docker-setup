@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:lts-jdk11
 USER root
 
 #RUN apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common maven
@@ -18,3 +18,12 @@ RUN wget https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_
 	tar -xvf docker-${DOCKER_VERSION}.tgz &&\
 	cp docker/docker* /usr/bin/ &&\
 	chown jenkins:jenkins /usr/bin/docker*
+
+RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+RUN ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+
+USER jenkins
