@@ -59,6 +59,10 @@ services:
       - "9096:9096"
     networks:
       - infra
+    dns:
+      # external DNS-Servers required to resolve hostname ('robxtask') to access keycloak through proxy
+      - 213.133.98.98
+      - 8.8.8.8
 
   ##############################
   ## Business Process Service ##
