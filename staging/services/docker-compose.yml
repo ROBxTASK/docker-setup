@@ -257,6 +257,23 @@ services:
     networks:
       - infra
 
+  ##########################################
+  ######## RxT Registration Service ########
+  ##########################################
+
+  registration-service:
+    image: robxtask/registration-service:staging
+    restart: always
+    env_file:
+      - env_vars
+      - env_vars-staging
+      - platform-config
+    mem_limit: 800m
+    #ports:
+    #  - "8082:8082"
+    networks:
+      - infra
+
 networks:
   infra:
     external:
