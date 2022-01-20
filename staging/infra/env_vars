@@ -1,4 +1,5 @@
 SPRING_PROFILES_ACTIVE=docker,dev
+# config server relies on https://github.com/nimble-platform/cloud-config
 CONFIG_SERVER_URI=http://config-server:8888
 DISCOVERY_SERVER_URI=http://service-discovery:8761
 DISCOVERY_PREFER_IP=false

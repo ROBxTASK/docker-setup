@@ -1,0 +1,4 @@
+# This specific configuration lets the gateway-proxy pass the 'Authorization' Header with the Bearer Token
+# This is a ROBxTASK specific configuration for the registration-service and therefore is not in the nimble-platform cloud-config.
+# Uses Spring Config features explained at https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.external-config
+SPRING_APPLICATION_JSON='{"zuul":{"routes":{"registration":{"path":"/registration-service/**","serviceId":"registration-service","sensitiveHeaders":""}}}}'
