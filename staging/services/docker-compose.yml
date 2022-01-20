@@ -273,6 +273,10 @@ services:
     #  - "8082:8082"
     networks:
       - infra
+    dns:
+      # external DNS-Servers resolve hostname ('robxtask') to access keycloak (e.g. for token validation) through proxy
+      - 213.133.98.98
+      - 8.8.8.8
 
 networks:
   infra:
