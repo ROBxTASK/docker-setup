@@ -3,6 +3,7 @@ version: '3'
 services:
   staging-mongo-db:
     image: mongo:4
+    hostname: staging-mongo-db
     restart: always
     env_file:
       - env_vars
@@ -29,8 +30,7 @@ services:
     #ports:
     #  - 8081:8081
     depends_on:
-      staging-mongo-db:
-        condition: service_healthy
+      - staging-mongo-db
     links:
       - staging-mongo-db
     networks:
