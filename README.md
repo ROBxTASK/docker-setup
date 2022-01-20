@@ -83,7 +83,40 @@ A utility script can be found in `run-staging.sh`, which provides the following 
 
 ## A note about service routes
 
-Routes are handled by the gateway-proxy and appear e.g. at: [https://robxtask.salzburgresearch.at/robxtask/routes](https://robxtask.salzburgresearch.at/robxtask/routes)
+Routes are handled by the **gateway-proxy** and appear e.g. at: [https://robxtask.salzburgresearch.at/robxtask/routes](https://robxtask.salzburgresearch.at/robxtask/routes)
 
 There are some preconfigured routes available and used from [https://github.com/nimble-platform/cloud-config](https://github.com/nimble-platform/cloud-config)
 In addition to that, all running services add their own route using their own service name.
+Note, that the **gateway-proxy** deployed for ROBxTASK holds specific configuration in '[env_vars-gateway-proxy](staging/infra/env_vars-gateway-proxy)'.
+
+## Debugging options
+
+### Debugging with a separate `tcpdump`-container (recommended)
+
+```bash
+docker build -t tcpdump - <<EOF 
+FROM ubuntu 
+RUN apt-get update && apt-get install -y tcpdump 
+CMD tcpdump -i eth0 
+EOF
+
+# example for dumping traffic between gateway proxy and identity service
+docker run --tty --net=container:robxtask-infra-staging_gateway-proxy_1 tcpdump tcpdump -N -A 'host identity-service'
+```
+
+### Enable debug logging in nginx
+
+Two log formats are defined in nginx.conf: 'mainlogfmt' and 'debuglogfmt'. The latter can be used for debugging and will dump lots of information to the log (even confidential tokens, etc.)
+
+### Remote debugging
+
+Java-based services can also be remotely debugged, if required. To enable this, a debugging port needs to be accessible, e.g. by adding it in the service's docker-compose specification:
+
+```
+    ports:
+      - "127.0.0.1:5005:5005"
+    environment:
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+```
+
+For accessing it, ssh-port forwarding may be required: `ssh -L5005:localhost:5005 <target-machine>`
