@@ -5,7 +5,7 @@ ROBxTASK Docker Deployment Setup for remote `staging` environment. Setting up a 
 This project-specific setup is manages several docker containers grouped in separate directories:
 
 (**NB:** For remote deployment we recommend using the provided [fabricate](https://www.fabfile.org/) file: `fab deploy logs -H <username>@<host>`
-)
+).
 
 ## ROBxTASK CI/CD Server using [Jenkins](https://www.jenkins.io/)
 
