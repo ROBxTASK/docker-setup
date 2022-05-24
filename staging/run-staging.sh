@@ -37,7 +37,8 @@ elif [[ "$1" = "services" ]]; then
 		registry-service asset-indexing-service semantic-lookup-service \
 		simple-registration-service catalog-service-srdc business-process-service \
 		data-aggregation-service data-channel-service trust-service \
-		registration-service
+		registration-service \
+		codegen-service
 
 elif [[ "$1" = "start" ]]; then
 	update_images

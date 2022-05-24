@@ -277,6 +277,23 @@ services:
       # external DNS-Servers resolve hostname ('robxtask') to access keycloak (e.g. for token validation) through proxy
       - 213.133.98.98
       - 8.8.8.8
+      
+  ##########################################
+  ######## RxT CodeGen Service ########
+  ##########################################
+
+  codegen-service:
+    image: robxtask/codegen-service:staging
+    restart: always
+    env_file:
+      - env_vars
+      - env_vars-staging
+      - platform-config
+    mem_limit: 800m
+    #ports:
+    #  - "8083:8083"
+    networks:
+      - infra
 
 networks:
   infra:
